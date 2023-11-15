@@ -1,6 +1,7 @@
 <template>
-    <div class="card col-2">
-        <img :src="store.imageUrl + url_immagine" class="card-img-top" :alt="titolo">
+    <div class="card col-3">
+        <img :src="store.imageUrl + url_immagine" class="card-img-top" :alt="titolo" v-if="url_immagine">
+        <img src="/images/default.jpeg" alt="default" v-else>
         <div class="card-body">
             <h4 class="card-title">{{titolo}}</h4>
             <h6 class="card-title">Titolo originale: {{titolo_originale}}</h6>
@@ -17,11 +18,26 @@
     export default {
         name: 'CardComponent',
         props:{
-            titolo_originale: String,
-            url_immagine: String,
-            titolo: String,
-            media_voti: Number,
-            lingua_originale: String,
+            titolo_originale: {
+                type: String,
+                required: true,
+            },
+            url_immagine: {
+                type: String,
+                required: false,
+            },
+            titolo: {
+                type: String,
+                required: true,
+            },
+            media_voti: {
+                type: Number,
+                required: false,
+            },
+            lingua_originale: {
+                type: String,
+                required: true,
+            },
         },
         data(){
             return{

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <header>
-      <SearchBar @search="getMovies"/>
+      <SearchBar @search="getSeries(), getMovies()"/>
     </header>
     <main>
       <MainComponent/>

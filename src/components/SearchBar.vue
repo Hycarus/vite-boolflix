@@ -1,6 +1,6 @@
 <template>
     <div class="input-group flex-nowrap">
-        <input class="form-control" placeholder="Inserisci il film che vuoi cercare" type="text" v-model="store.params.query" @keyup.enter="$emit('search', textSearch)">
+        <input class="form-control" placeholder="Inserisci il film/serie tv che vuoi cercare" type="text" v-model="store.params.query" @keyup.enter="$emit('search', textSearch)">
         <button class="btn btn-success" @click="$emit('search', textSearch)">Search</button>
     </div>
 </template>
