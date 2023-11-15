@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <header>
-      <SearchBar @search="getSeries(), getMovies()"/>
+      <SearchBar @search="getMoviesAndSeries"/>
     </header>
     <main>
       <MainComponent/>
@@ -21,22 +21,19 @@
       MainComponent,
     },
     methods:{
-      getMovies(){
-        const url = store.apiUrl + store.endPoint.movie
-        axios.get(url, {params: store.params}).then((response)=>{
+      getMoviesAndSeries(){
+        const movieUrl = store.apiUrl + store.endPoint.movie
+        axios.get(movieUrl, {params: store.params}).then((response)=>{
           console.log(response.data.results);
           store.movieList = response.data.results
         })
-        store.params.query = '';
-      },
-      getSeries(){
-        const url = store.apiUrl + store.endPoint.series
-        axios.get(url, {params: store.params}).then((response)=>{
+        const seriesUrl = store.apiUrl + store.endPoint.series
+        axios.get(seriesUrl, {params: store.params}).then((response)=>{
           console.log(response.data.results);
           store.seriesList = response.data.results
         })
         store.params.query = '';
-      }
+      },
     },
     created(){
       
