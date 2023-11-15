@@ -5,7 +5,7 @@
             <CardComponent
             :url_immagine="element.poster_path"
             :titolo="element.title"
-            :media_voti="element.vote_average"
+            :media_voti="roundedVote(element.vote_average)"
             :titolo_originale="element.original_title"
             :lingua_originale="element.original_language"
             v-for="(element, index) in store.movieList"
@@ -40,6 +40,13 @@
             return{
                 store,
             }
+        },
+        methods: {
+            roundedVote(vote){
+                let newVote = vote / 2;
+                let roundedVote = Math.round(newVote * 2) / 2;
+                return roundedVote
+      }
         }
     }
 </script>

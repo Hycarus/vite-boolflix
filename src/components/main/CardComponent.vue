@@ -6,7 +6,13 @@
             <h4 class="card-title">{{titolo}}</h4>
             <h6 class="card-title">Titolo originale: {{titolo_originale}}</h6>
             <p class="card-text">
-                Voto: {{ media_voti }}
+                Voto:
+                <i :class="{'fa-solid fa-star-half-stroke': media_voti > 0 && media_voti < 1,'fa-solid fa-star': media_voti > 0, 'fa-regular fa-star': media_voti === 0}"></i>
+                <i :class="{'fa-solid fa-star-half-stroke': media_voti > 1 && media_voti < 2,'fa-solid fa-star': media_voti > 1, 'fa-regular fa-star': media_voti < 2}"></i>
+                <i :class="{'fa-solid fa-star-half-stroke': media_voti > 2 && media_voti < 3,'fa-solid fa-star': media_voti > 2, 'fa-regular fa-star': media_voti < 3}"></i>
+                <i :class="{'fa-solid fa-star-half-stroke': media_voti > 3 && media_voti < 4,'fa-solid fa-star': media_voti > 3, 'fa-regular fa-star': media_voti < 4}"></i>
+                <i :class="{'fa-solid fa-star-half-stroke': media_voti > 4 && media_voti < 5,'fa-solid fa-star': media_voti > 4, 'fa-regular fa-star': media_voti < 5}"></i>
+                 {{ media_voti }}
             </p>
             <p v-if="lingua_originale === 'en'">
                 Lingua:
@@ -54,7 +60,7 @@
             </p>
             <p v-else-if="lingua_originale === 'ko'">
                 Lingua:
-                <img src="/images/flag_of_South_Korea.gif" alt="korean flag"> 
+                <img src="/images/flag-of-south-korea.gif" alt="korean flag"> 
             </p>
             <p v-else-if="lingua_originale === 'ro'">
                 Lingua:
