@@ -18,7 +18,7 @@
             <CardComponent
             :url_immagine="element.poster_path"
             :titolo="element.name"
-            :media_voti="element.vote_average"
+            :media_voti="roundedVote(element.vote_average)"
             :titolo_originale="element.original_name"
             :lingua_originale="element.original_language"
             v-for="(element, index) in store.seriesList"

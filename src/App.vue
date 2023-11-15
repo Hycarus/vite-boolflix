@@ -1,5 +1,8 @@
 <template>
-  <div class="container">
+  <div v-show="hideLogin === true">
+    <LoginComponent @addProfile="addProfile" @showApp="showApp = true, hideLogin = false"/>
+  </div>
+  <div class="container" v-show="showApp === true">
     <header>
       <SearchBar @search="getMoviesAndSeries"/>
     </header>
@@ -10,6 +13,7 @@
 </template>
 
 <script>
+  import LoginComponent from './components/LoginComponent.vue';
   import MainComponent from './components/MainComponent.vue'
   import SearchBar from './components/SearchBar.vue'
   import axios from 'axios';
@@ -19,6 +23,13 @@
     components: {
       SearchBar,
       MainComponent,
+      LoginComponent,
+    },
+    data(){
+      return{
+        showApp: false,
+        hideLogin: true,
+      }
     },
     methods:{
       getMoviesAndSeries(){
@@ -34,6 +45,17 @@
         })
         store.params.query = '';
       },
+      
+      addProfile(name){
+        if(name.trim() !== ''){
+            store.profileList.push({
+                id: store.profileList.length + 1,
+                name: name,
+                profilePic: '/images/default-profile-pic.jpeg'
+            })
+            console.log(store.profileList);
+        }
+      }
     },
     created(){
       

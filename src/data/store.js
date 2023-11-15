@@ -12,4 +12,20 @@ export const store = reactive({
     },
     movieList: [],
     seriesList: [],
+    profileList: [
+        {
+            id: 1,
+            name: 'Mirko',
+            profilePic: '/images/geralt-pic.jpeg',
+            descriptionPic: 'geralt-pic',
+            adult: true,
+        },
+        {  
+            id:2,
+            name: 'Bambini',
+            profilePic: '/images/kid-pic.avif',
+            descriptionPic: 'kid-pic',
+            adult: false,
+        }
+    ],
 })
