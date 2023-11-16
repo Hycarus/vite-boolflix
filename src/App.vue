@@ -4,7 +4,7 @@
   </div>
   <div v-show="showApp">
     <body>
-      <header class="p-4 position-fixed w-100 z-3 " id="header">
+      <header class="px-4 position-fixed w-100" id="header">
         <HeaderComponent @search="getMoviesAndSeries"/>
       </header>
       <div id="jumbotron">
@@ -13,7 +13,7 @@
         -->
       </div>
       <main id="main" >
-        <div class="container">
+        <div class="container pb-5 ">
           <MainComponent/>
         </div>
       </main>
@@ -44,7 +44,7 @@
       getMoviesAndSeries(){
         const movieUrl = store.apiUrl + store.endPoint.movie
         axios.get(movieUrl, {params: store.params}).then((response)=>{
-          console.log(response.data.results);
+          // console.log(response.data.results);
           store.movieList = response.data.results
         })
         const seriesUrl = store.apiUrl + store.endPoint.series
@@ -56,7 +56,7 @@
       },
       getPopular(){
         axios.get(store.popularUrl, {params: store.paramsPopular}).then((response)=>{
-          console.log(response.data.results);
+          // console.log(response.data.results);
           store.popularList = response.data.results
         })
       },
@@ -85,6 +85,7 @@ body{
 }
 #header{
   background-color: rgba(0, 0, 0, 0.599);
+  z-index: 1000;
 }
 #jumbotron{
   width: 100%;
@@ -94,6 +95,7 @@ body{
   background-size: cover;
 }
 #main{
-  background-color: rgb(37, 37, 37);;
+  background: rgb(0,0,0);
+  background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(20,20,20,1) 58%, rgba(52,50,50,1) 100%);
 }
 </style>

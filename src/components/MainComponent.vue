@@ -1,8 +1,9 @@
 <template>
-    <section class="position-relative">
+    <section class="position-relative py-2 ">
         <h2 class="text-light">Series</h2>
         <div class="row flex-nowrap overflow-hidden" ref="seriesSlider">
             <CardComponent
+            :riassunto="element.overview"
             :url_immagine="element.poster_path"
             :titolo="element.name"
             :media_voti="roundedVote(element.vote_average)"
@@ -12,13 +13,22 @@
             :key="index"
             />
         </div>
-        <div class="prev" @click="scrollSeries(0, -1100)"></div>
-        <div class="next" @click="scrollSeries(0, 1100)"></div>
+        <div v-show="store.showDetails">
+            <HiddenComponent @active="takeMovieObject"
+            :titolo_originale="store.movieObject.myOriginalTitle"
+            :media_voti="store.movieObject.myVote"
+            :lingua_originale="store.movieObject.myLanguage"
+            :riassunto="store.movieObject.myOverview"
+            />
+        </div>
+        <div class="prev" @click="scrollSeries(0, -1120)"></div>
+        <div class="next" @click="scrollSeries(0, 1120)"></div>
     </section>
-    <section class="position-relative ">
+    <section class="position-relative py-2 ">
         <h2 class="text-light">Movie</h2>
         <div class="row flex-nowrap overflow-hidden" ref="moviesSlider">
             <CardComponent
+            :riassunto="element.overview"
             :url_immagine="element.poster_path"
             :titolo="element.title"
             :media_voti="roundedVote(element.vote_average)"
@@ -27,13 +37,22 @@
             v-for="(element, index) in store.movieList"
             :key="index"/>
         </div>
-        <div class="prev" @click="scrollMovie(0, -1100)"></div>
-        <div class="next" @click="scrollMovie(0, 1100)"></div>
+        <div v-show="store.showDetails">
+            <HiddenComponent @active="takeSeriesObject"
+            :titolo_originale="store.seriesObject.myOriginalTitle"
+            :media_voti="store.seriesObject.myVote"
+            :lingua_originale="store.seriesObject.myLanguage"
+            :riassunto="store.seriesObject.myOverview"
+            />
+        </div>
+        <div class="prev" @click="scrollMovie(0, -1120)"></div>
+        <div class="next" @click="scrollMovie(0, 1120)"></div>
     </section>
-    <section class="position-relative">
+    <section class="position-relative py-2 ">
         <h2 class="text-light">Popular movies</h2>
         <div class="row flex-nowrap overflow-hidden" ref="popularMoviesSlider">
             <CardComponent
+            :riassunto="element.overview"
             :url_immagine="element.poster_path"
             :titolo="element.title"
             :media_voti="roundedVote(element.vote_average)"
@@ -43,19 +62,29 @@
             :key="index"
             />
         </div>
-        <div class="prev" @click="scrollPopularMovies(0, -1100)"></div>
-        <div class="next" @click="scrollPopularMovies(0, 1100)"></div>
+        <div v-show="store.showDetails">
+            <HiddenComponent @active="takePopularObject"
+            :titolo_originale="store.popularObject.myOriginalTitle"
+            :media_voti="store.popularObject.myVote"
+            :lingua_originale="store.popularObject.myLanguage"
+            :riassunto="store.popularObject.myOverview"
+            />
+        </div>
+        <div class="prev" @click="scrollPopularMovies(0, -1120)"></div>
+        <div class="next" @click="scrollPopularMovies(0, 1120)"></div>
     </section>
     
 </template>
 
 <script>
+    import HiddenComponent from './HiddenComponent.vue';
     import {store} from '../data/store.js';
     import CardComponent from './main/CardComponent.vue'
     export default {
         name: 'MainComponent',
         components: {
-            CardComponent
+            CardComponent,
+            HiddenComponent,
         },
         data(){
             return{
@@ -92,6 +121,15 @@
                         behavior : "smooth"
                     });
             },
+            takeMovieObject(){
+                return store.movieObject
+            },
+            takeSeriesObject(){
+                return store.seriesObject
+            },
+            takePopularObject(){
+                return store.popularObject
+            },
         },
     }
 </script>
@@ -109,9 +147,11 @@
     transform: translate(-50%);
     cursor: pointer;
     z-index: 999;
+    margin-left: 10px;
 }
 .next {
     left: 100%;
+    margin-left: 0;
 }
 .prev::after {
     content: '';
@@ -137,5 +177,8 @@
     bottom: 35%;
     left: 50%;
     transform: translate(-50%) rotate(135deg);
+}
+.my-overflow{
+    overflow: unset;
 }
 </style>

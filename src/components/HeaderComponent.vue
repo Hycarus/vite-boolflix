@@ -29,16 +29,19 @@
                 </div>
             </nav>
         </div>
-        <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex justify-content-evenly align-items-center">
             <div class="input-group w-50 flex-nowrap">
                 <input class="form-control" placeholder="Inserisci il film/serie tv che vuoi cercare" type="text" v-model="store.params.query" @keyup.enter="$emit('search', textSearch), store.showMain = true, scrollPage()">
                 <button class="btn btn-success" @click="$emit('search', textSearch), store.showMain = true, scrollPage()">Search</button>
             </div>
-            <div class="user">
-                <img :src="store.profileList[store.profileIndex].profilePic" :alt="store.profileList[store.profileIndex].descriptionPic">
-                <div class="text-light text-center">
+            <div class="user d-flex align-items-center">
+                <div class="text-light text-center me-3">
                     {{ store.profileList[store.profileIndex].name }}
                 </div>
+                <div>
+                    <img :src="store.profileList[store.profileIndex].profilePic" :alt="store.profileList[store.profileIndex].descriptionPic">
+                </div>
+                
             </div>
         </div>
         
@@ -72,8 +75,8 @@
 
 <style lang="scss" scoped>
 img{
-    width: 100px;
-    transform: translate(0, -7px);
+    width: 70px;
+    height: 70px;
 }
 .user{
     width: 100px;
