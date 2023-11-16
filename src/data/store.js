@@ -36,7 +36,7 @@ export const store = reactive({
     profileIndex: 0,
     imageUrlBD: 'https://image.tmdb.org/t/p/w1200',
     showMain: false,
-    showDetails: false,
+    showDetails: null,
     movieObject: {},
     seriesObject: {},
     popularObject: {},

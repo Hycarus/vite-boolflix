@@ -3,6 +3,7 @@
         <h2 class="text-light">Series</h2>
         <div class="row flex-nowrap overflow-hidden" ref="seriesSlider">
             <CardComponent
+            tipo_componente="series"
             :riassunto="element.overview"
             :url_immagine="element.poster_path"
             :titolo="element.name"
@@ -13,12 +14,12 @@
             :key="index"
             />
         </div>
-        <div v-show="store.showDetails">
-            <HiddenComponent @active="takeMovieObject"
-            :titolo_originale="store.movieObject.myOriginalTitle"
-            :media_voti="store.movieObject.myVote"
-            :lingua_originale="store.movieObject.myLanguage"
-            :riassunto="store.movieObject.myOverview"
+        <div v-show="store.showDetails === 'series'">
+            <HiddenComponent @active="takeSeriesObject"
+            :titolo_originale="store.seriesObject.myOriginalTitle"
+            :media_voti="store.seriesObject.myVote"
+            :lingua_originale="store.seriesObject.myLanguage"
+            :riassunto="store.seriesObject.myOverview"
             />
         </div>
         <div class="prev" @click="scrollSeries(0, -1120)"></div>
@@ -28,6 +29,7 @@
         <h2 class="text-light">Movie</h2>
         <div class="row flex-nowrap overflow-hidden" ref="moviesSlider">
             <CardComponent
+            tipo_componente="movies"
             :riassunto="element.overview"
             :url_immagine="element.poster_path"
             :titolo="element.title"
@@ -37,12 +39,12 @@
             v-for="(element, index) in store.movieList"
             :key="index"/>
         </div>
-        <div v-show="store.showDetails">
-            <HiddenComponent @active="takeSeriesObject"
-            :titolo_originale="store.seriesObject.myOriginalTitle"
-            :media_voti="store.seriesObject.myVote"
-            :lingua_originale="store.seriesObject.myLanguage"
-            :riassunto="store.seriesObject.myOverview"
+        <div v-show="store.showDetails === 'movies'">
+            <HiddenComponent @active="takeMovieObject"
+            :titolo_originale="store.movieObject.myOriginalTitle"
+            :media_voti="store.movieObject.myVote"
+            :lingua_originale="store.movieObject.myLanguage"
+            :riassunto="store.movieObject.myOverview"
             />
         </div>
         <div class="prev" @click="scrollMovie(0, -1120)"></div>
@@ -52,6 +54,7 @@
         <h2 class="text-light">Popular movies</h2>
         <div class="row flex-nowrap overflow-hidden" ref="popularMoviesSlider">
             <CardComponent
+            tipo_componente="popular"
             :riassunto="element.overview"
             :url_immagine="element.poster_path"
             :titolo="element.title"
@@ -62,7 +65,7 @@
             :key="index"
             />
         </div>
-        <div v-show="store.showDetails">
+        <div v-show="store.showDetails === 'popular'">
             <HiddenComponent @active="takePopularObject"
             :titolo_originale="store.popularObject.myOriginalTitle"
             :media_voti="store.popularObject.myVote"

@@ -1,5 +1,5 @@
 <template>
-    <div class="card col-2 position-relative" @click="$emit('active'), stockObject(), store.showDetails = true">
+    <div class="card col-2 position-relative" @click="$emit('active'), stockObject(), store.showDetails = tipo_componente">
         <img :src="store.imageUrl + url_immagine" class="card-img-top" :alt="titolo" v-if="url_immagine">
         <img src="/images/default.jpeg" alt="default" v-else>
         <div class="card-body">
@@ -101,6 +101,9 @@
             riassunto: {
                 type: String,
                 required: true,
+            },
+            tipo_componente: {
+                type: String,
             }
         },
         data(){
@@ -110,13 +113,19 @@
         },
         methods:{
             stockObject(){
-                store.movieObject = {
+                const object = {
                     myOriginalTitle: this.titolo_originale,
                     myVote: this.media_voti,
                     myLanguage: this.lingua_originale,
                     myOverview: this.riassunto,
+                    }
+                if(this.tipo_componente === 'movies'){
+                    store.movieObject = object
+                }else if(this.tipo_componente === 'series'){
+                    store.seriesObject = object
+                }else if (this.tipo_componente === 'popular'){
+                    store.popularObject = object
                 }
-                console.log(store.movieObject);
             },
             
         }
