@@ -14,7 +14,7 @@
             :key="index"
             />
         </div>
-        <div v-show="store.showDetails === 'series'">
+        <div v-show="store.showDetails === 'series'" class="my-padding-bottom">
             <HiddenComponent @active="takeSeriesObject"
             :titolo_originale="store.seriesObject.myOriginalTitle"
             :media_voti="store.seriesObject.myVote"
@@ -39,7 +39,7 @@
             v-for="(element, index) in store.movieList"
             :key="index"/>
         </div>
-        <div v-show="store.showDetails === 'movies'">
+        <div v-show="store.showDetails === 'movies'" class="my-padding-bottom">
             <HiddenComponent @active="takeMovieObject"
             :titolo_originale="store.movieObject.myOriginalTitle"
             :media_voti="store.movieObject.myVote"
@@ -65,7 +65,7 @@
             :key="index"
             />
         </div>
-        <div v-show="store.showDetails === 'popular'">
+        <div v-show="store.showDetails === 'popular'" class="my-padding-bottom">
             <HiddenComponent @active="takePopularObject"
             :titolo_originale="store.popularObject.myOriginalTitle"
             :media_voti="store.popularObject.myVote"
@@ -183,5 +183,8 @@
 }
 .my-overflow{
     overflow: unset;
+}
+.my-padding-bottom{
+    padding-bottom: 300px;
 }
 </style>
