@@ -5,18 +5,18 @@
                 Chi vuole guardare Boolflix
             </h1>
             <section class="row justify-content-center ">
-                <div class="user m-4 col-3 d-flex flex-column align-items-center" @click="$emit('showApp')" v-for="profile in store.profileList">
+                <div class="user m-4 col-3 d-flex flex-column align-items-center" @click="$emit('showApp'), store.profileIndex = profile.id - 1" v-for="(profile, index) in store.profileList" :key="index">
                     <div class="user-image">
                         <img class="w-100" :src="profile.profilePic" :alt="profile.descriptionPic">
                     </div>
-                    <div class="my-text-color mt-2 ">{{profile.name}}</div>
+                    <div class="my-text-color mt-2">{{profile.name}}</div>
                 </div>
                 <div class="user m-4 col-3 d-flex flex-column align-items-center">
                     <button class="btn p-0" @click="showPopup = true">
-                        <div class="user-image" >
+                        <div class="user-image">
                             <i class="fa-solid fa-circle-plus my-text-color"></i>
                         </div>
-                        <div class="my-text-color mt-2 ">Aggiungi un profilo</div>
+                        <div class="my-text-color mt-2">Aggiungi un profilo</div>
                     </button>
                 </div>
                 <div class="sfondo" v-show="showPopup === true">
