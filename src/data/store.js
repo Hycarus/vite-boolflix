@@ -9,12 +9,10 @@ export const store = reactive({
     },
     paramsPopular: {
         api_key: '04b63a97f719edbe743291502d732b6d',
-        language: 'en-US',
-        page: 1,
     },
     params:{
         api_key: '04b63a97f719edbe743291502d732b6d',
-        query: '',
+        query: 'star',
     },
     movieList: [],
     seriesList: [],

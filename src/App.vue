@@ -73,6 +73,7 @@
     },
     created(){
       this.getPopular()
+      this.getMoviesAndSeries()
     }
   }
 </script>
