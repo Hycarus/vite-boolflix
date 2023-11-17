@@ -37,7 +37,7 @@
             v-show="(!store.isFiltered || element.genre_ids.includes(store.filteredGenre[0].id))"
             tipo_componente="movies"
             :genere="element.genre_ids"
-            :riassunto="element.overview"
+            :riassunto="element.overview" 
             :url_immagine="element.poster_path"
             :titolo="element.title"
             :media_voti="roundedVote(element.vote_average)"
