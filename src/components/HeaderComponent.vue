@@ -29,6 +29,14 @@
                 </div>
             </nav>
         </div>
+        <div>
+            <select name="genres" id="genres" v-model="store.genresSearch" @change="$emit('genresChange')">
+                <option value="">All</option>
+                <option v-for="genres in store.genresList" :key="genres" :value="genres.id">
+                {{ genres.name }}
+                </option>
+            </select>
+        </div>
         <div class="d-flex justify-content-evenly align-items-center">
             <div class="input-group w-50 flex-nowrap">
                 <input class="form-control" placeholder="Inserisci il film/serie tv che vuoi cercare" type="text" v-model="store.params.query" @keyup.enter="$emit('search', textSearch), store.showMain = true, scrollPage()">

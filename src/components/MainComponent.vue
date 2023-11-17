@@ -3,20 +3,21 @@
         <h2 class="text-light">Series</h2>
         <div class="prev" @click="scrollSeries(0, -1120)"></div>
         <div class="next" @click="scrollSeries(0, 1120)"></div>
-        <div class="row flex-nowrap custom-scrollbar" ref="seriesSlider" id="prova">
-            <CardComponent
-            tipo_componente="series"
-            :genere="element.genre_ids"
-            :riassunto="element.overview"
-            :url_immagine="element.poster_path"
-            :titolo="element.name"
-            :media_voti="roundedVote(element.vote_average)"
-            :titolo_originale="element.original_name"
-            :lingua_originale="element.original_language"
-            v-for="(element, index) in store.seriesList"
-            :key="index"
-            />
-        </div>
+            <div class="row flex-nowrap custom-scrollbar" ref="seriesSlider" id="prova">
+                <CardComponent
+                v-show="(!store.isFiltered || element.genre_ids.includes(store.filteredGenre[0].id))"
+                tipo_componente="series"
+                :genere="element.genre_ids"
+                :riassunto="element.overview"
+                :url_immagine="element.poster_path"
+                :titolo="element.name"
+                :media_voti="roundedVote(element.vote_average)"
+                :titolo_originale="element.original_name"
+                :lingua_originale="element.original_language"
+                v-for="(element, index) in store.seriesList"
+                :key="index"
+                />
+            </div>
         <div v-show="store.showDetails === 'series'" class="my-padding-bottom">
             <HiddenComponent @active="takeSeriesObject"
             :genere="store.seriesObject.myGenre"
@@ -31,6 +32,7 @@
         <h2 class="text-light">Movie</h2>
         <div class="row flex-nowrap overflow-hidden" ref="moviesSlider">
             <CardComponent
+            v-show="(!store.isFiltered || element.genre_ids.includes(store.filteredGenre[0].id))"
             tipo_componente="movies"
             :genere="element.genre_ids"
             :riassunto="element.overview"
@@ -58,6 +60,7 @@
         <h2 class="text-light">Popular movies</h2>
         <div class="row flex-nowrap overflow-hidden" ref="popularMoviesSlider">
             <CardComponent
+            v-show="(!store.isFiltered || element.genre_ids.includes(store.filteredGenre[0].id))"
             tipo_componente="popular"
             :genere="element.genre_ids"
             :riassunto="element.overview"

@@ -5,7 +5,7 @@
   <div v-show="showApp">
     <body>
       <header class="px-4 position-fixed w-100" id="header">
-        <HeaderComponent @search="getMoviesAndSeries"/>
+        <HeaderComponent @search="getMoviesAndSeries" @genres-change="filterGenres"/>
       </header>
       <div id="jumbotron">
         <!-- da rivedere
@@ -95,7 +95,18 @@
             console.log(store.genresList);
           })
       },
-      
+      filterGenres(){
+      store.filteredGenre = [];
+        if (store.genresSearch != "") {
+          console.log(store.genresSearch);
+          store.isFiltered = true;
+          store.filteredGenre = store.genresList.filter((el) => el.id == store.genresSearch)
+          console.log(store.filteredGenre);
+        } else {
+          store.isFiltered = false;
+        }
+
+      },
     },
     created(){
       this.getPopular()
