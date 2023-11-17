@@ -81,12 +81,15 @@ p{
 .card{
     color: white;
     margin: 0 10px !important;
-    min-height: 350px;
+    height: 350px;
     cursor: pointer;
     &:hover img{
         border: 5px solid white;
     } 
     &:hover{
+        #triangolo{
+            display: block !important;
+        }
         
         .card-body{
             background-color: rgba(0, 0, 0, 0.317);
@@ -112,5 +115,6 @@ div#triangolo {
     left: 50%;
     transform: translate(-50%, 0);
     z-index: 1000;
+    display: none;
 }
 </style>

@@ -1,7 +1,9 @@
 <template>
     <section class="position-relative py-2 ">
         <h2 class="text-light">Series</h2>
-        <div class="row flex-nowrap" ref="seriesSlider" id="prova">
+        <div class="prev" @click="scrollSeries(0, -1120)"></div>
+        <div class="next" @click="scrollSeries(0, 1120)"></div>
+        <div class="row flex-nowrap custom-scrollbar" ref="seriesSlider" id="prova">
             <CardComponent
             tipo_componente="series"
             :genere="element.genre_ids"
@@ -24,8 +26,6 @@
             :riassunto="store.seriesObject.myOverview"
             />
         </div>
-        <div class="prev" @click="scrollSeries(0, -1120)"></div>
-        <div class="next" @click="scrollSeries(0, 1120)"></div>
     </section>
     <section class="position-relative py-2 ">
         <h2 class="text-light">Movie</h2>
@@ -151,12 +151,12 @@
     border-radius: 50%;
     background: #ccc;
     position: absolute;
-    left: 0;
+    left: -30px;
     bottom: 50%;
-    transform: translate(-50%);
+    // transform: translate(-50%);
     cursor: pointer;
     z-index: 999;
-    margin-left: 10px;
+    // margin-left: 10px;
 }
 .next {
     left: 100%;
@@ -192,6 +192,19 @@
     padding-bottom: 350px;
 }
 #prova{
-    overflow-x: hidden;
+    overflow-x: scroll;
+}
+.custom-scrollbar::-webkit-scrollbar{
+    width: 1px;
+    height: 1px;
+}
+.custom-scrollbar::-webkit-scrollbar-track{
+    background: #555999;
+    border-radius: 1px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb{
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 1px;
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0.5);
 }
 </style>
