@@ -3,7 +3,7 @@
         <h2 class="text-light">Series</h2>
         <div class="prev" @click="scrollSeries(0, -1120)"></div>
         <div class="next" @click="scrollSeries(0, 1120)"></div>
-            <div class="row flex-nowrap custom-scrollbar" ref="seriesSlider" id="prova">
+            <div class="row flex-nowrap custom-scrollbar overflow-x-scroll" ref="seriesSlider">
                 <CardComponent
                 v-show="(!store.isFiltered || element.genre_ids.includes(store.filteredGenre[0].id))"
                 tipo_componente="series"
@@ -30,7 +30,9 @@
     </section>
     <section class="position-relative py-2 ">
         <h2 class="text-light">Movie</h2>
-        <div class="row flex-nowrap overflow-hidden" ref="moviesSlider">
+        <div class="prev" @click="scrollMovie(0, -1120)"></div>
+        <div class="next" @click="scrollMovie(0, 1120)"></div>
+        <div class="row flex-nowrap custom-scrollbar overflow-x-scroll" ref="moviesSlider">
             <CardComponent
             v-show="(!store.isFiltered || element.genre_ids.includes(store.filteredGenre[0].id))"
             tipo_componente="movies"
@@ -53,12 +55,13 @@
             :riassunto="store.movieObject.myOverview"
             />
         </div>
-        <div class="prev" @click="scrollMovie(0, -1120)"></div>
-        <div class="next" @click="scrollMovie(0, 1120)"></div>
+        
     </section>
     <section class="position-relative py-2 ">
         <h2 class="text-light">Popular movies</h2>
-        <div class="row flex-nowrap overflow-hidden" ref="popularMoviesSlider">
+        <div class="prev" @click="scrollPopularMovies(0, -1120)"></div>
+        <div class="next" @click="scrollPopularMovies(0, 1120)"></div>
+        <div class="row flex-nowrap custom-scrollbar overflow-x-scroll" ref="popularMoviesSlider">
             <CardComponent
             v-show="(!store.isFiltered || element.genre_ids.includes(store.filteredGenre[0].id))"
             tipo_componente="popular"
@@ -82,8 +85,7 @@
             :riassunto="store.popularObject.myOverview"
             />
         </div>
-        <div class="prev" @click="scrollPopularMovies(0, -1120)"></div>
-        <div class="next" @click="scrollPopularMovies(0, 1120)"></div>
+        
     </section>
     
 </template>
@@ -193,9 +195,6 @@
 
 .my-padding-bottom{
     padding-bottom: 350px;
-}
-#prova{
-    overflow-x: scroll;
 }
 .custom-scrollbar::-webkit-scrollbar{
     width: 1px;
