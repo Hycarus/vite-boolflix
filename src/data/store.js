@@ -40,4 +40,9 @@ export const store = reactive({
     movieObject: {},
     seriesObject: {},
     popularObject: {},
+    genresEndPoint: {
+        movie:'genre/movie/list',
+        series: 'genre/tv/list',
+    },
+    genresList: [],
 })

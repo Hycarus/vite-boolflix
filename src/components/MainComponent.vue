@@ -1,9 +1,10 @@
 <template>
     <section class="position-relative py-2 ">
         <h2 class="text-light">Series</h2>
-        <div class="row flex-nowrap overflow-hidden" ref="seriesSlider">
+        <div class="row flex-nowrap" ref="seriesSlider" id="prova">
             <CardComponent
             tipo_componente="series"
+            :genere="element.genre_ids"
             :riassunto="element.overview"
             :url_immagine="element.poster_path"
             :titolo="element.name"
@@ -16,6 +17,7 @@
         </div>
         <div v-show="store.showDetails === 'series'" class="my-padding-bottom">
             <HiddenComponent @active="takeSeriesObject"
+            :genere="store.seriesObject.myGenre"
             :titolo_originale="store.seriesObject.myOriginalTitle"
             :media_voti="store.seriesObject.myVote"
             :lingua_originale="store.seriesObject.myLanguage"
@@ -30,6 +32,7 @@
         <div class="row flex-nowrap overflow-hidden" ref="moviesSlider">
             <CardComponent
             tipo_componente="movies"
+            :genere="element.genre_ids"
             :riassunto="element.overview"
             :url_immagine="element.poster_path"
             :titolo="element.title"
@@ -41,6 +44,7 @@
         </div>
         <div v-show="store.showDetails === 'movies'" class="my-padding-bottom">
             <HiddenComponent @active="takeMovieObject"
+            :genere="store.movieObject.myGenre"
             :titolo_originale="store.movieObject.myOriginalTitle"
             :media_voti="store.movieObject.myVote"
             :lingua_originale="store.movieObject.myLanguage"
@@ -55,6 +59,7 @@
         <div class="row flex-nowrap overflow-hidden" ref="popularMoviesSlider">
             <CardComponent
             tipo_componente="popular"
+            :genere="element.genre_ids"
             :riassunto="element.overview"
             :url_immagine="element.poster_path"
             :titolo="element.title"
@@ -67,6 +72,7 @@
         </div>
         <div v-show="store.showDetails === 'popular'" class="my-padding-bottom">
             <HiddenComponent @active="takePopularObject"
+            :genere="store.popularObject.myGenre"
             :titolo_originale="store.popularObject.myOriginalTitle"
             :media_voti="store.popularObject.myVote"
             :lingua_originale="store.popularObject.myLanguage"
@@ -181,10 +187,11 @@
     left: 50%;
     transform: translate(-50%) rotate(135deg);
 }
-.my-overflow{
-    overflow: unset;
-}
+
 .my-padding-bottom{
-    padding-bottom: 300px;
+    padding-bottom: 350px;
+}
+#prova{
+    overflow-x: hidden;
 }
 </style>

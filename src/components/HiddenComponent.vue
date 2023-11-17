@@ -1,8 +1,8 @@
 <template>
     <div class="position-relative">
         
-        <div class="position-absolute my-hidden">
-            <div class="position-absolute my-xmark p-2" @click="store.showDetails = false">
+        <div class="position-absolute my-hidden rounded rounded-2 p-2 ">
+            <div class="position-absolute my-xmark px-2 " @click="store.showDetails = false">
                 <i class="fa-solid fa-xmark"></i>
             </div>
             <h6 class="card-title">Titolo originale: {{titolo_originale}}</h6>
@@ -69,6 +69,10 @@
             </p>
             <h5 v-else class="card-title">Lingua: {{ lingua_originale }}</h5>
             <div>{{ riassunto }}</div>
+            <div class="pt-2">
+                <h5>Generi:</h5>
+                <span v-for="item in genere">{{ getGenreName(item) }}. </span>
+            </div>
         </div>
     </div>
 </template>
@@ -94,10 +98,22 @@
                 type: String,
                 required: false,
             },
+            genere: {
+                type: Array,
+                required: false,
+            }
         },
         data(){
             return{
                 store,
+            }
+        },
+        methods: {
+            getGenreName(id) {
+                const finder = store.genresList.find((el) => el.id == id)
+                if (finder) {
+                    return finder.name;
+                }
             }
         }
     }
@@ -113,7 +129,7 @@ p{
     display: inline-block;
     z-index: 2000;
     width: 100%;
-    height: 300px;
+    height: 350px;
     background: rgb(0,0,0);
     background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(20,20,20,1) 58%, rgba(52,50,50,1) 100%);
     color: $my_text_color;

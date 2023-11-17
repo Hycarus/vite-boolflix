@@ -1,75 +1,11 @@
 <template>
-    <div class="card col-2 position-relative" @click="$emit('active'), stockObject(), store.showDetails = tipo_componente">
-        <img :src="store.imageUrl + url_immagine" class="card-img-top" :alt="titolo" v-if="url_immagine">
-        <img src="/images/default.jpeg" alt="default" v-else>
-        <div class="card-body">
-            <h4 class="card-title">{{titolo}}</h4>
+    <div class="card col-2 p-0 border-0" @click="$emit('active'), stockObject(), store.showDetails = tipo_componente">
+        <img :src="store.imageUrl + url_immagine" class="card-img-top h-100" :alt="titolo" v-if="url_immagine">
+        <img  class="card-img-top" src="/images/default.jpeg" alt="default" v-else>
+        <div class="card-body position-absolute">
+            <h4 class="card-title d-none">{{titolo}}</h4>
         </div>
-        <!-- <div class="text-light my-hidden position-absolute">
-            <h6 class="card-title">Titolo originale: {{titolo_originale}}</h6>
-            <p class="card-text">
-                Voto:
-                <i :class="{'fa-solid fa-star-half-stroke': media_voti > 0 && media_voti < 1,'fa-solid fa-star': media_voti > 0, 'fa-regular fa-star': media_voti === 0}"></i>
-                <i :class="{'fa-solid fa-star-half-stroke': media_voti > 1 && media_voti < 2,'fa-solid fa-star': media_voti > 1, 'fa-regular fa-star': media_voti < 2}"></i>
-                <i :class="{'fa-solid fa-star-half-stroke': media_voti > 2 && media_voti < 3,'fa-solid fa-star': media_voti > 2, 'fa-regular fa-star': media_voti < 3}"></i>
-                <i :class="{'fa-solid fa-star-half-stroke': media_voti > 3 && media_voti < 4,'fa-solid fa-star': media_voti > 3, 'fa-regular fa-star': media_voti < 4}"></i>
-                <i :class="{'fa-solid fa-star-half-stroke': media_voti > 4 && media_voti < 5,'fa-solid fa-star': media_voti > 4, 'fa-regular fa-star': media_voti < 5}"></i>
-                 {{ media_voti }}
-            </p>
-            <p v-if="lingua_originale === 'en'">
-                Lingua:
-                <img src="/images/british-flag-12.gif" alt="british flag"> 
-            </p>
-            <p v-else-if="lingua_originale === 'it'">
-                Lingua:
-                <img src="/images/italian-flag-9.gif" alt="italian flag"> 
-            </p>
-            <p v-else-if="lingua_originale === 'de'">
-                Lingua:
-                <img src="/images/german-flag-3.gif" alt="german flag"> 
-            </p>
-            <p v-else-if="lingua_originale === 'es'">
-                Lingua:
-                <img src="/images/spanish-flag-17.gif" alt="spanish flag"> 
-            </p>
-            <p v-else-if="lingua_originale === 'fr'">
-                Lingua:
-                <img src="/images/france-flag.gif" alt="france flag"> 
-            </p>
-            <p v-else-if="lingua_originale === 'ja'">
-                Lingua:
-                <img src="/images/japanese-flag-28.gif" alt="japanese flag"> 
-            </p>
-            <p v-else-if="lingua_originale === 'cn' || lingua_originale === 'zh'">
-                Lingua:
-                <img src="/images/chinese-flag-11.gif" alt="chinese flag"> 
-            </p>
-            <p v-else-if="lingua_originale === 'da'">
-                Lingua:
-                <img src="/images/denmark-3-transparent-flag.gif" alt="denmark flag"> 
-            </p>
-            <p v-else-if="lingua_originale === 'cs'">
-                Lingua:
-                <img src="/images/czech-flag.gif" alt="czech flag"> 
-            </p>
-            <p v-else-if="lingua_originale === 'sv'">
-                Lingua:
-                <img src="/images/elsalvador-flag.webp" alt="elsalvador flag"> 
-            </p>
-            <p v-else-if="lingua_originale === 'hi' || lingua_originale === 'kn'">
-                Lingua:
-                <img src="/images/indian-flag-15.gif" alt="indian flag"> 
-            </p>
-            <p v-else-if="lingua_originale === 'ko'">
-                Lingua:
-                <img src="/images/flag-of-south-korea.gif" alt="korean flag"> 
-            </p>
-            <p v-else-if="lingua_originale === 'ro'">
-                Lingua:
-                <img src="/images/romanian-flag.gif" alt="romanian flag"> 
-            </p>
-            <h5 v-else class="card-title">Lingua: {{ lingua_originale }}</h5>
-        </div> -->
+        <div id="triangolo" class="position-absolute"></div>
     </div>
 </template>
 
@@ -104,6 +40,10 @@
             },
             tipo_componente: {
                 type: String,
+            },
+            genere: {
+                type: Array,
+                required: false,
             }
         },
         data(){
@@ -118,6 +58,7 @@
                     myVote: this.media_voti,
                     myLanguage: this.lingua_originale,
                     myOverview: this.riassunto,
+                    myGenre: this.genere,
                     }
                 if(this.tipo_componente === 'movies'){
                     store.movieObject = object
@@ -127,9 +68,7 @@
                     store.popularObject = object
                 }
             },
-            
         }
-        
     }
 </script>
 
@@ -140,19 +79,38 @@ p{
     }
 }
 .card{
-    background-color: rgb(70, 10, 10);
     color: white;
     margin: 0 10px !important;
-    max-height: 500px;
+    min-height: 350px;
     cursor: pointer;
-    &:hover{
-        .my-hidden{
-            display: inline-block;
-        }
+    &:hover img{
+        border: 5px solid white;
     } 
+    &:hover{
+        
+        .card-body{
+            background-color: rgba(0, 0, 0, 0.317);
+            border-radius: 20px;
+            .card-title{
+                display: block !important;
+            }
+        }
+    }
 }
 .card-body{
-    overflow-y: auto;
+    bottom: 0;
+    margin: 5px;
 }
-
+div#triangolo {
+    width: 0;
+    height: 0;
+    line-height: 0px;
+    border-top: 20px solid white;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    bottom: -20px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    z-index: 1000;
+}
 </style>

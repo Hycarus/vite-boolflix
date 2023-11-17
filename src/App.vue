@@ -69,11 +69,38 @@
             })
             console.log(store.profileList);
         }
-      }
+      },
+      getGenres() {
+        const movieGenreUrl = store.apiUrl + store.genresEndPoint.movie;
+        const serieGenreUrl = store.apiUrl + store.genresEndPoint.series;
+        const apiUrl = `?api_key=${store.params.api_key}`
+
+        Promise.all([axios.get(movieGenreUrl + apiUrl), axios.get(serieGenreUrl + apiUrl)])
+          .then((results) => {
+            const result0 = results[0].data.genres;
+            const result1 = results[1].data.genres;
+
+            for (let i = 0; i < result0.length; i++) {
+              store.genresList.push(result0[i]);
+            }
+
+            for (let x = 0; x < result1.length; x++) {
+              store.genresList.push(result1[x]);
+            }
+
+            store.genresList = store.genresList.filter(
+              (genre, index, arr) =>
+                index === arr.findIndex((g) => g.id === genre.id || g.name === genre.name)
+            );
+            console.log(store.genresList);
+          })
+      },
+      
     },
     created(){
       this.getPopular()
       this.getMoviesAndSeries()
+      this.getGenres()
     }
   }
 </script>
