@@ -50,5 +50,7 @@ export const store = reactive({
     isFiltered: false,
     castList: [],
     isActive: false,
-
+    movieIdList: [],
+    seriesIdList: [],
+    popularIdList: [],
 })

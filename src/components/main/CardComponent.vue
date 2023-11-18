@@ -1,5 +1,5 @@
 <template>
-    <div class="card col-2 p-0 border-0" @click="$emit('active'), $emit('prova'), addCredits(), stockObject(), store.showDetails = tipo_componente">
+    <div class="card col-2 p-0 border-0" @click="$emit('active'), addCredits(), stockObject(), store.showDetails = tipo_componente, activeCard = this.id, activeFlag = !activeFlag" :class="{'activeCard': isActive()}">
         <img :src="store.imageUrl + url_immagine" class="card-img-top h-100" :alt="titolo" v-if="url_immagine">
         <img  class="card-img-top" src="/images/default.jpeg" alt="default" v-else>
         <div class="card-body position-absolute">
@@ -55,6 +55,8 @@
         data(){
             return{
                 store,
+                activeCard: null,
+                activeFlag: false,
             }
         },
         methods:{
@@ -82,7 +84,7 @@
                 //     return
                 // }
                 const endpoint = this.tipo + this.id + `/credits`;
-                console.log(endpoint);
+                // console.log(endpoint);
                 const params = {
                     api_key: store.params.api_key
                 }
@@ -95,6 +97,11 @@
                     }
                 })
             },
+            isActive(){
+                if(this.activeFlag){
+                    return this.id === this.activeCard ? true : false
+                }
+            }
         }
     }
 </script>
@@ -108,16 +115,13 @@ p{
 .card{
     color: white;
     margin: 0 10px !important;
-    height: 350px;
+    // height: 350px;
+    aspect-ratio: 2 / 3;
     cursor: pointer;
     &:hover img{
         border: 5px solid white;
     } 
     &:hover{
-        #triangolo{
-            display: block !important;
-        }
-        
         .card-body{
             background-color: rgba(0, 0, 0, 0.317);
             border-radius: 20px;
@@ -127,9 +131,11 @@ p{
         }
     }
 }
+.activeCard{
+    border: 5px solid white !important;
+}
 .card-body{
     bottom: 0;
     margin: 5px;
 }
-
 </style>

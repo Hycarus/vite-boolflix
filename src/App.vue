@@ -14,12 +14,12 @@
       <header class="px-4 position-fixed w-100" id="header">
         <HeaderComponent @search="getMoviesAndSeries" @genres-change="filterGenres"/>
       </header>
-      <div id="jumbotron" @click="store.isActive = false">
+      <div id="jumbotron">
         <!-- da rivedere
           <img :src="imageUrlBD + store.seriesList[0].backdrop_path" alt=""> 
         -->
       </div>
-      <main id="main" @click="store.isActive = false">
+      <main id="main">
         <div class="container pb-5 ">
           <MainComponent/>
         </div>
@@ -50,15 +50,32 @@
     },
     methods:{
       getMoviesAndSeries(){
+        store.movieList = [];
+        store.seriesList = [];
+        store.movieIdList = [];
+        store.seriesIdList = [];
         const movieUrl = store.apiUrl + store.endPoint.movie
         axios.get(movieUrl, {params: store.params}).then((response)=>{
           // console.log(response.data.results);
           store.movieList = response.data.results
+          for(let i = 0; i < response.data.results.length; i++){
+            for(let a = 0; a < response.data.results[i].genre_ids.length; a++){
+              store.movieIdList.push(response.data.results[i].genre_ids[a])
+            }
+          }
+          // console.log(store.movieList);
+          // console.log(store.movieIdList);
         })
         const seriesUrl = store.apiUrl + store.endPoint.series
         axios.get(seriesUrl, {params: store.params}).then((response)=>{
-          console.log(response.data.results);
+          // console.log(response.data.results);
           store.seriesList = response.data.results
+          for(let i = 0; i < response.data.results.length; i++){
+            for(let a = 0; a < response.data.results[i].genre_ids.length; a++){
+              store.seriesIdList.push(response.data.results[i].genre_ids[a])
+            }
+          }
+          // console.log(store.seriesList);
         })
         store.params.query = '';
       },
@@ -66,6 +83,12 @@
         axios.get(store.popularUrl, {params: store.paramsPopular}).then((response)=>{
           // console.log(response.data.results);
           store.popularList = response.data.results
+          for(let i = 0; i < response.data.results.length; i++){
+            for(let a = 0; a < response.data.results[i].genre_ids.length; a++){
+              store.popularIdList.push(response.data.results[i].genre_ids[a])
+            }
+          }
+          // console.log(store.popularList);
         })
       },
       addProfile(name){
@@ -100,16 +123,14 @@
               (genre, index, arr) =>
                 index === arr.findIndex((g) => g.id === genre.id || g.name === genre.name)
             );
-            console.log(store.genresList);
+            // console.log(store.genresList);
           })
       },
       filterGenres(){
       store.filteredGenre = [];
         if (store.genresSearch != "") {
-          console.log(store.genresSearch);
           store.isFiltered = true;
           store.filteredGenre = store.genresList.filter((el) => el.id == store.genresSearch)
-          console.log(store.filteredGenre);
         } else {
           store.isFiltered = false;
         }

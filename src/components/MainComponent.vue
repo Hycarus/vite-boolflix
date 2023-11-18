@@ -1,5 +1,5 @@
 <template>
-    <section class="position-relative py-2 ">
+    <section class="position-relative py-2 " v-show="(store.seriesList.length > 0 && store.genresSearch === '') || (store.seriesIdList.includes(store.genresSearch))">
         <h2 class="text-light" v-show="store.seriesList.length > 0">Series</h2>
         <div class="prev" @click="scrollSeries(0, -1120)" v-show="store.seriesList.length > 5"></div>
         <div class="next" @click="scrollSeries(0, 1120)" v-show="store.seriesList.length > 5"></div>
@@ -32,7 +32,7 @@
             />
         </div>
     </section>
-    <section class="position-relative py-2 ">
+    <section class="position-relative py-2" v-show="(store.movieList.length > 0 && store.genresSearch === '') || (store.movieIdList.includes(store.genresSearch))">
         <h2 class="text-light" v-show="store.movieList.length > 0">Movie</h2>
         <div class="prev" @click="scrollMovie(0, -1120)" v-show="store.movieList.length > 5"></div>
         <div class="next" @click="scrollMovie(0, 1120)" v-show="store.movieList.length > 5"></div>
@@ -65,11 +65,11 @@
         </div>
         
     </section>
-    <section class="position-relative py-2 ">
+    <section class="position-relative py-2 " v-show="(store.popularList.length > 0 && store.genresSearch === '') || (store.popularIdList.includes(store.genresSearch))">
         <h2 class="text-light">Popular movies</h2>
         <div class="prev" @click="scrollPopularMovies(0, -1120)" v-show="store.popularList.length > 5"></div>
         <div class="next" @click="scrollPopularMovies(0, 1120)" v-show="store.popularList.length > 5"></div>
-        <div class="row flex-nowrap custom-scrollbar overflow-x-scroll" ref="popularMoviesSlider">
+        <div class="row flex-nowrap" ref="popularMoviesSlider" :class="{'custom-scrollbar overflow-x-scroll': store.popularList.length > 5}">
             <CardComponent
             v-show="(!store.isFiltered || element.genre_ids.includes(store.filteredGenre[0].id))"
             tipo_componente="popular"
@@ -99,7 +99,9 @@
         </div>
         
     </section>
-    
+    <section class="position-relative py-2 " v-show="(store.popularList.length === 0 && store.genresSearch === '' && store.movieList.length === 0 && store.seriesList.length === 0) || (!store.popularIdList.includes(store.genresSearch) && !store.seriesIdList.includes(store.genresSearch) && !store.movieIdList.includes(store.genresSearch)) && store.genresSearch != ''">
+        <h1 class="text-light text-center p-5">Non ci sono risultati</h1>
+    </section>
 </template>
 
 <script>
