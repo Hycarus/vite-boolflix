@@ -1,6 +1,13 @@
 <template>
   <div v-show="hideLogin">
-    <LoginComponent @addProfile="addProfile" @showApp="showApp = true, hideLogin = false"/>
+    <LoginComponent @addProfile="addProfile" @showApp="splash = true, hideLogin = false, splashDisappear()"/>
+  </div>
+  <div v-show="splash">
+    <div class="video-container overflow-hidden ">
+        <video class="video" ref="video">
+            <source src="/images/logo-video.mp4">
+        </video>
+    </div>
   </div>
   <div v-show="showApp">
     <body>
@@ -32,12 +39,13 @@
     components: {
     MainComponent,
     LoginComponent,
-    HeaderComponent
+    HeaderComponent,
 },
     data(){
       return{
         showApp: false,
         hideLogin: true,
+        splash: false,
       }
     },
     methods:{
@@ -107,6 +115,14 @@
         }
 
       },
+      splashDisappear(){
+        this.$refs.video.play()
+        setTimeout(()=>{
+          this.splash = false
+          this.showApp = true
+        }, 4300)
+      }
+      
       
     },
     created(){
@@ -136,5 +152,14 @@ body{
 #main{
   background: rgb(0,0,0);
   background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(20,20,20,1) 58%, rgba(52,50,50,1) 100%);
+}
+.video-container{
+    width: 100%;
+    height: 100vh;
+    .video{
+        width: 100%;
+        height: 100vh;
+        object-fit: cover;
+    }
 }
 </style>

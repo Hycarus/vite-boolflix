@@ -68,14 +68,17 @@
                 <img src="/images/romanian-flag.gif" alt="romanian flag"> 
             </p>
             <h5 v-else class="card-title">Lingua: {{ lingua_originale }}</h5>
-            <div>{{ riassunto }}</div>
+            <div class="pt-2 pb-1">
+                <h5>Riassunto:</h5>
+                <span>{{ riassunto }}</span>
+            </div>
             <div class="pt-2 pb-1">
                 <h5>Generi:</h5>
-                <span v-for="item in genere">{{ getGenreName(item) }}. </span>
+                <span class="px-1" v-for="item in genere">{{ getGenreName(item) }} </span>
             </div>
             <div class="pt-2">
                 <h5>Cast:</h5>
-                <span v-for="actor in store.castList"> {{ actor + ',' + ' '}}</span>
+                <span class="px-1" v-for="actor in store.castList"> {{ actor }}</span>
             </div>
         </div>
     </div>
@@ -141,7 +144,6 @@ p{
     display: inline-block;
     z-index: 2000;
     width: 100%;
-    height: 350px;
     background: rgb(0,0,0);
     background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(20,20,20,1) 58%, rgba(52,50,50,1) 100%);
     color: $my_text_color;

@@ -5,7 +5,6 @@
         <div class="card-body position-absolute">
             <h4 class="card-title d-none">{{titolo}}</h4>
         </div>
-        <div id="triangolo" class="position-absolute"></div>
     </div>
 </template>
 
@@ -132,17 +131,5 @@ p{
     bottom: 0;
     margin: 5px;
 }
-div#triangolo {
-    width: 0;
-    height: 0;
-    line-height: 0px;
-    border-top: 20px solid white;
-    border-left: 20px solid transparent;
-    border-right: 20px solid transparent;
-    bottom: -20px;
-    left: 50%;
-    transform: translate(-50%, 0);
-    z-index: 1000;
-    display: none;
-}
+
 </style>

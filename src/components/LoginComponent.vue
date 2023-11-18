@@ -5,7 +5,7 @@
                 Chi vuole guardare Boolflix
             </h1>
             <section class="row justify-content-center ">
-                <div class="user m-4 col-3 d-flex flex-column align-items-center" @click="$emit('showApp'), store.profileIndex = profile.id - 1" v-for="(profile, index) in store.profileList" :key="index">
+                <div class="user m-4 col-3 d-flex flex-column align-items-center" @click="$emit('showApp'), store.profileIndex = profile.id - 1, flag = true" v-for="(profile, index) in store.profileList" :key="index">
                     <div class="user-image">
                         <img class="w-100" :src="profile.profilePic" :alt="profile.descriptionPic">
                     </div>

@@ -23,7 +23,7 @@
         <div v-show="store.showDetails === 'series'" class="my-padding-bottom">
             <HiddenComponent @active="takeSeriesObject"
             :tipo="store.seriesObject.myTipo"
-            :id="store.movieObject.myId"
+            :id="store.seriesObject.myId"
             :genere="store.seriesObject.myGenre"
             :titolo_originale="store.seriesObject.myOriginalTitle"
             :media_voti="store.seriesObject.myVote"
@@ -213,11 +213,12 @@
 }
 .custom-scrollbar::-webkit-scrollbar{
     width: 1px;
-    height: 1px;
+    height: 3px;
 }
 .custom-scrollbar::-webkit-scrollbar-track{
     background: #555999;
     border-radius: 1px;
+    margin: 0 300px;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb{
     background: rgba(255, 255, 255, 0.5);
