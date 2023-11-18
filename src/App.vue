@@ -10,16 +10,16 @@
     </div>
   </div>
   <div v-show="showApp">
-    <body>
+    <body >
       <header class="px-4 position-fixed w-100" id="header">
         <HeaderComponent @search="getMoviesAndSeries" @genres-change="filterGenres"/>
       </header>
-      <div id="jumbotron">
+      <div id="jumbotron" @click="store.isActive = false">
         <!-- da rivedere
           <img :src="imageUrlBD + store.seriesList[0].backdrop_path" alt=""> 
         -->
       </div>
-      <main id="main" >
+      <main id="main" @click="store.isActive = false">
         <div class="container pb-5 ">
           <MainComponent/>
         </div>
