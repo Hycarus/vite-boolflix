@@ -1,6 +1,6 @@
 <template>
     <section class="position-relative py-2 ">
-        <h2 class="text-light" v-show="store.seriesList.length > 5">Series</h2>
+        <h2 class="text-light" v-show="store.seriesList.length > 0">Series</h2>
         <div class="prev" @click="scrollSeries(0, -1120)" v-show="store.seriesList.length > 5"></div>
         <div class="next" @click="scrollSeries(0, 1120)" v-show="store.seriesList.length > 5"></div>
             <div class="row flex-nowrap" ref="seriesSlider" :class="{'custom-scrollbar overflow-x-scroll': store.seriesList.length > 5}">
@@ -33,10 +33,10 @@
         </div>
     </section>
     <section class="position-relative py-2 ">
-        <h2 class="text-light" v-show="store.movieList.length > 5">Movie</h2>
+        <h2 class="text-light" v-show="store.movieList.length > 0">Movie</h2>
         <div class="prev" @click="scrollMovie(0, -1120)" v-show="store.movieList.length > 5"></div>
         <div class="next" @click="scrollMovie(0, 1120)" v-show="store.movieList.length > 5"></div>
-        <div class="row flex-nowrap" ref="moviesSlider" :class="{'custom-scrollbar overflow-x-scroll': store.seriesList.length > 5}">
+        <div class="row flex-nowrap" ref="moviesSlider" :class="{'custom-scrollbar overflow-x-scroll': store.movieList.length > 5}">
             <CardComponent
             v-show="(!store.isFiltered || element.genre_ids.includes(store.filteredGenre[0].id))"
             tipo_componente="movies"
