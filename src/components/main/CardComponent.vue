@@ -1,5 +1,5 @@
 <template>
-    <div class="card col-2 p-0 border-0" @click="$emit('active'), stockObject(), store.showDetails = tipo_componente">
+    <div class="card col-2 p-0 border-0" @click="$emit('active'), $emit('prova'), addCredits(), stockObject(), store.showDetails = tipo_componente">
         <img :src="store.imageUrl + url_immagine" class="card-img-top h-100" :alt="titolo" v-if="url_immagine">
         <img  class="card-img-top" src="/images/default.jpeg" alt="default" v-else>
         <div class="card-body position-absolute">
@@ -11,6 +11,7 @@
 
 <script>
     import {store} from '../../data/store.js';
+    import axios from 'axios';
     export default {
         name: 'CardComponent',
         props:{
@@ -44,6 +45,12 @@
             genere: {
                 type: Array,
                 required: false,
+            },
+            id: {
+                type: Number,
+            },
+            tipo: {
+                type: String
             }
         },
         data(){
@@ -59,7 +66,10 @@
                     myLanguage: this.lingua_originale,
                     myOverview: this.riassunto,
                     myGenre: this.genere,
+                    myId: this.id,
+                    myTipo: this.tipo
                     }
+                console.log(object);
                 if(this.tipo_componente === 'movies'){
                     store.movieObject = object
                 }else if(this.tipo_componente === 'series'){
@@ -67,6 +77,24 @@
                 }else if (this.tipo_componente === 'popular'){
                     store.popularObject = object
                 }
+            },
+            addCredits(){
+                // if (movie.cast && movie.cast.length > 0){
+                //     return
+                // }
+                const endpoint = this.tipo + this.id + `/credits`;
+                console.log(endpoint);
+                const params = {
+                    api_key: store.params.api_key
+                }
+                axios.get(store.apiUrl + endpoint, {params}).then((res)=>{
+                    store.castList = []
+                    for(let i = 0; i < 5; i++){
+                        if(res.data.cast[i]){
+                            store.castList.push(res.data.cast[i].name);
+                        }
+                    }
+                })
             },
         }
     }

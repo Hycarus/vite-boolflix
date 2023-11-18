@@ -7,6 +7,8 @@
                 <CardComponent
                 v-show="(!store.isFiltered || element.genre_ids.includes(store.filteredGenre[0].id))"
                 tipo_componente="series"
+                :id="element.id"
+                :tipo="'tv/'"
                 :genere="element.genre_ids"
                 :riassunto="element.overview"
                 :url_immagine="element.poster_path"
@@ -20,6 +22,8 @@
             </div>
         <div v-show="store.showDetails === 'series'" class="my-padding-bottom">
             <HiddenComponent @active="takeSeriesObject"
+            :tipo="store.seriesObject.myTipo"
+            :id="store.movieObject.myId"
             :genere="store.seriesObject.myGenre"
             :titolo_originale="store.seriesObject.myOriginalTitle"
             :media_voti="store.seriesObject.myVote"
@@ -36,6 +40,8 @@
             <CardComponent
             v-show="(!store.isFiltered || element.genre_ids.includes(store.filteredGenre[0].id))"
             tipo_componente="movies"
+            :id="element.id"
+            :tipo="'movie/'"
             :genere="element.genre_ids"
             :riassunto="element.overview" 
             :url_immagine="element.poster_path"
@@ -48,6 +54,8 @@
         </div>
         <div v-show="store.showDetails === 'movies'" class="my-padding-bottom">
             <HiddenComponent @active="takeMovieObject"
+            :tipo="store.movieObject.myTipo"
+            :id="store.movieObject.myId"
             :genere="store.movieObject.myGenre"
             :titolo_originale="store.movieObject.myOriginalTitle"
             :media_voti="store.movieObject.myVote"
@@ -65,6 +73,8 @@
             <CardComponent
             v-show="(!store.isFiltered || element.genre_ids.includes(store.filteredGenre[0].id))"
             tipo_componente="popular"
+            :id="element.id"
+            :tipo="'movie/'"
             :genere="element.genre_ids"
             :riassunto="element.overview"
             :url_immagine="element.poster_path"
@@ -78,6 +88,8 @@
         </div>
         <div v-show="store.showDetails === 'popular'" class="my-padding-bottom">
             <HiddenComponent @active="takePopularObject"
+            :tipo="store.popularObject.myTipo"
+            :id="store.popularObject.myId"
             :genere="store.popularObject.myGenre"
             :titolo_originale="store.popularObject.myOriginalTitle"
             :media_voti="store.popularObject.myVote"
@@ -94,6 +106,7 @@
     import HiddenComponent from './HiddenComponent.vue';
     import {store} from '../data/store.js';
     import CardComponent from './main/CardComponent.vue'
+    
     export default {
         name: 'MainComponent',
         components: {
@@ -145,6 +158,8 @@
                 return store.popularObject
             },
         },
+        created(){
+        }
     }
 </script>
 

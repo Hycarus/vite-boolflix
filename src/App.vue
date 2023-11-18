@@ -107,6 +107,7 @@
         }
 
       },
+      
     },
     created(){
       this.getPopular()

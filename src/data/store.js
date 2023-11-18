@@ -48,4 +48,5 @@ export const store = reactive({
     filteredGenre: [],
     genresSearch: '',
     isFiltered: false,
+    castList: [],
 })

@@ -69,9 +69,13 @@
             </p>
             <h5 v-else class="card-title">Lingua: {{ lingua_originale }}</h5>
             <div>{{ riassunto }}</div>
-            <div class="pt-2">
+            <div class="pt-2 pb-1">
                 <h5>Generi:</h5>
                 <span v-for="item in genere">{{ getGenreName(item) }}. </span>
+            </div>
+            <div class="pt-2">
+                <h5>Cast:</h5>
+                <span v-for="actor in store.castList"> {{ actor + ',' + ' '}}</span>
             </div>
         </div>
     </div>
@@ -101,6 +105,12 @@
             genere: {
                 type: Array,
                 required: false,
+            },
+            id: {
+                type: Number,
+            },
+            tipo: {
+                type: String
             }
         },
         data(){
@@ -114,7 +124,9 @@
                 if (finder) {
                     return finder.name;
                 }
-            }
+            },
+            
+            
         }
     }
 </script>
