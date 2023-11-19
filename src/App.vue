@@ -10,14 +10,18 @@
     </div>
   </div>
   <div v-show="showApp">
-    <body >
+    <body>
       <header class="px-4 position-fixed w-100" id="header">
         <HeaderComponent @search="getMoviesAndSeries" @genres-change="filterGenres"/>
       </header>
       <div id="jumbotron">
-        <!-- da rivedere
-          <img :src="imageUrlBD + store.seriesList[0].backdrop_path" alt=""> 
-        -->
+        <div class="video-container position-relative ">
+          <iframe class="trailer-video" :src="store.videoLink" frameborder="0">
+          </iframe>
+          <div class="position-absolute black-square1"></div>
+          <div class="position-absolute black-square2"></div>
+          <div class="position-absolute black-square3"></div>
+        </div>
       </div>
       <main id="main">
         <div class="container pb-5 ">
@@ -43,6 +47,7 @@
 },
     data(){
       return{
+        store,
         showApp: false,
         hideLogin: true,
         splash: false,
@@ -142,12 +147,22 @@
           this.splash = false
           this.showApp = true
         }, 4300)
-      }
+      },
+      startVideos(){
+        const url = store.apiUrl + store.videosParams.series + `94605` + `/videos`
+        console.log(url);
+        axios.get(url, {params: store.paramsPopular}).then((response)=>{
+          console.log(response.data.results);
+          store.videoLink = store.youtubeUrl + response.data.results[4].key + `?version=3&playlist=` + response.data.results[4].key + store.finalVideoUrl
+          console.log(store.videoLink);
+        })
+      },
     },
     created(){
       this.getPopular()
       this.getMoviesAndSeries()
       this.getGenres()
+      this.startVideos()
     }
   }
 </script>
@@ -161,13 +176,7 @@ body{
   background-color: rgba(0, 0, 0, 0.599);
   z-index: 1000;
 }
-#jumbotron{
-  width: 100%;
-  height: 100%;
-  background-image: url(/images/arcane-netflix.jpeg);
-  background-repeat: no-repeat;
-  background-size: cover;
-}
+
 #main{
   background: rgb(0,0,0);
   background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(20,20,20,1) 58%, rgba(52,50,50,1) 100%);
@@ -176,9 +185,39 @@ body{
     width: 100%;
     height: 100vh;
     .video{
-        width: 100%;
-        height: 100vh;
-        object-fit: cover;
+      width: 100%;
+      height: 100vh;
+      object-fit: cover;
+    }
+    .trailer-video{
+      width: 100%;
+      height: 100vh;
+      object-fit: cover;
     }
 }
+.black-square1{
+  background-color: black;
+  width: 1000px;
+  height: 50px;
+  z-index: 500;
+  top: 0;
+  left: 0;
+}
+.black-square2{
+  background-color: black;
+  width: 350px;
+  height: 50px;
+  z-index: 500;
+  bottom: 0;
+  right: 0;
+}
+.black-square3{
+  background-color: black;
+  width: 350px;
+  height: 70px;
+  z-index: 500;
+  top: 0;
+  right: 0;
+}
+
 </style>

@@ -14,6 +14,11 @@ export const store = reactive({
         api_key: '04b63a97f719edbe743291502d732b6d',
         query: 'star',
     },
+    videosParams: {
+        movie: 'movie/',
+        series: 'tv/',
+        video: '/videos'
+    },
     movieList: [],
     seriesList: [],
     popularList: [],
@@ -53,4 +58,8 @@ export const store = reactive({
     movieIdList: [],
     seriesIdList: [],
     popularIdList: [],
+    videoLink: '',
+    youtubeUrl: 'https://www.youtube.com/embed/',
+    finalVideoUrl: '&autoplay=1&mute=1&loop=1&controls=0&rel=0&fs=0',
+    activeCard: null,
 })

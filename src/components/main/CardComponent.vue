@@ -1,5 +1,5 @@
 <template>
-    <div class="card col-2 p-0 border-0" @click="$emit('active'), addCredits(), stockObject(), store.showDetails = tipo_componente, activeCard = this.id, activeFlag = !activeFlag" :class="{'activeCard': isActive()}">
+    <div class="card col-2 p-0 border-0" @click="$emit('active'), addCredits(), stockObject(), store.showDetails = tipo_componente, store.activeCard = this.id, activeFlag = !activeFlag" :class="{'activeCard': isActive()}">
         <img :src="store.imageUrl + url_immagine" class="card-img-top h-100" :alt="titolo" v-if="url_immagine">
         <img  class="card-img-top" src="/images/default.jpeg" alt="default" v-else>
         <div class="card-body position-absolute">
@@ -55,7 +55,6 @@
         data(){
             return{
                 store,
-                activeCard: null,
                 activeFlag: false,
             }
         },
@@ -70,7 +69,7 @@
                     myId: this.id,
                     myTipo: this.tipo
                     }
-                console.log(object);
+                // console.log(object);
                 if(this.tipo_componente === 'movies'){
                     store.movieObject = object
                 }else if(this.tipo_componente === 'series'){
@@ -99,7 +98,7 @@
             },
             isActive(){
                 if(this.activeFlag){
-                    return this.id === this.activeCard ? true : false
+                    return this.id === store.activeCard ? true : false
                 }
             }
         }

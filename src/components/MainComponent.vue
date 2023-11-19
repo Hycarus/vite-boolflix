@@ -1,4 +1,39 @@
 <template>
+    <section class="position-relative py-2 " v-show="(store.popularList.length > 0 && store.genresSearch === '') || (store.popularIdList.includes(store.genresSearch))">
+        <h2 class="text-light">Popular movies</h2>
+        <div class="prev" @click="scrollPopularMovies(0, -1120)" v-show="store.popularList.length > 5"></div>
+        <div class="next" @click="scrollPopularMovies(0, 1120)" v-show="store.popularList.length > 5"></div>
+        <div class="row flex-nowrap" ref="popularMoviesSlider" :class="{'custom-scrollbar overflow-x-scroll': store.popularList.length > 5}">
+            <CardComponent
+            v-show="(!store.isFiltered || element.genre_ids.includes(store.filteredGenre[0].id))"
+            @click="getVideos"
+            tipo_componente="popular"
+            :id="element.id"
+            :tipo="'movie/'"
+            :genere="element.genre_ids"
+            :riassunto="element.overview"
+            :url_immagine="element.poster_path"
+            :titolo="element.title"
+            :media_voti="roundedVote(element.vote_average)"
+            :titolo_originale="element.original_title"
+            :lingua_originale="element.original_language"
+            v-for="(element, index) in store.popularList"
+            :key="index"
+            />
+        </div>
+        <div v-show="store.showDetails === 'popular'" class="my-padding-bottom">
+            <HiddenComponent @active="takePopularObject"
+            :tipo="store.popularObject.myTipo"
+            :id="store.popularObject.myId"
+            :genere="store.popularObject.myGenre"
+            :titolo_originale="store.popularObject.myOriginalTitle"
+            :media_voti="store.popularObject.myVote"
+            :lingua_originale="store.popularObject.myLanguage"
+            :riassunto="store.popularObject.myOverview"
+            />
+        </div>
+        
+    </section>
     <section class="position-relative py-2 " v-show="(store.seriesList.length > 0 && store.genresSearch === '') || (store.seriesIdList.includes(store.genresSearch))">
         <h2 class="text-light" v-show="store.seriesList.length > 0">Series</h2>
         <div class="prev" @click="scrollSeries(0, -1120)" v-show="store.seriesList.length > 5"></div>
@@ -18,6 +53,7 @@
                 :lingua_originale="element.original_language"
                 v-for="(element, index) in store.seriesList"
                 :key="index"
+                @click="showVideo()"
                 />
             </div>
         <div v-show="store.showDetails === 'series'" class="my-padding-bottom">
@@ -65,40 +101,7 @@
         </div>
         
     </section>
-    <section class="position-relative py-2 " v-show="(store.popularList.length > 0 && store.genresSearch === '') || (store.popularIdList.includes(store.genresSearch))">
-        <h2 class="text-light">Popular movies</h2>
-        <div class="prev" @click="scrollPopularMovies(0, -1120)" v-show="store.popularList.length > 5"></div>
-        <div class="next" @click="scrollPopularMovies(0, 1120)" v-show="store.popularList.length > 5"></div>
-        <div class="row flex-nowrap" ref="popularMoviesSlider" :class="{'custom-scrollbar overflow-x-scroll': store.popularList.length > 5}">
-            <CardComponent
-            v-show="(!store.isFiltered || element.genre_ids.includes(store.filteredGenre[0].id))"
-            tipo_componente="popular"
-            :id="element.id"
-            :tipo="'movie/'"
-            :genere="element.genre_ids"
-            :riassunto="element.overview"
-            :url_immagine="element.poster_path"
-            :titolo="element.title"
-            :media_voti="roundedVote(element.vote_average)"
-            :titolo_originale="element.original_title"
-            :lingua_originale="element.original_language"
-            v-for="(element, index) in store.popularList"
-            :key="index"
-            />
-        </div>
-        <div v-show="store.showDetails === 'popular'" class="my-padding-bottom">
-            <HiddenComponent @active="takePopularObject"
-            :tipo="store.popularObject.myTipo"
-            :id="store.popularObject.myId"
-            :genere="store.popularObject.myGenre"
-            :titolo_originale="store.popularObject.myOriginalTitle"
-            :media_voti="store.popularObject.myVote"
-            :lingua_originale="store.popularObject.myLanguage"
-            :riassunto="store.popularObject.myOverview"
-            />
-        </div>
-        
-    </section>
+    
     <section class="position-relative py-2 " v-show="(store.popularList.length === 0 && store.genresSearch === '' && store.movieList.length === 0 && store.seriesList.length === 0) || (!store.popularIdList.includes(store.genresSearch) && !store.seriesIdList.includes(store.genresSearch) && !store.movieIdList.includes(store.genresSearch)) && store.genresSearch != ''">
         <h1 class="text-light text-center p-5">Non ci sono risultati</h1>
     </section>
@@ -107,6 +110,7 @@
 <script>
     import HiddenComponent from './HiddenComponent.vue';
     import {store} from '../data/store.js';
+    import axios from 'axios';
     import CardComponent from './main/CardComponent.vue'
     
     export default {
@@ -159,7 +163,21 @@
             takePopularObject(){
                 return store.popularObject
             },
+            getVideos(){
+                const url = store.apiUrl + store.videosParams.movie + store.activeCard + store.videosParams.video
+                console.log(url);
+                axios.get(url, {params: store.paramsPopular}).then((response)=>{
+                    console.log(response.data.results);
+                    for(let i = 0; i < response.data.results.length; i++){
+                        if(response.data.results[i].name === 'Official Trailer'){
+                            store.videoLink = store.youtubeUrl + response.data.results[i].key + `?version=3&playlist=` + response.data.results[i].key + store.finalVideoUrl
+                        }
+                    }
+                    console.log(store.videoLink);
+                })
+            },
         },
+        
         created(){
         }
     }
