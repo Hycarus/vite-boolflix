@@ -131,10 +131,10 @@
         if (store.genresSearch != "") {
           store.isFiltered = true;
           store.filteredGenre = store.genresList.filter((el) => el.id == store.genresSearch)
+          console.log(store.filteredGenre);
         } else {
           store.isFiltered = false;
         }
-
       },
       splashDisappear(){
         this.$refs.video.play()
@@ -143,8 +143,6 @@
           this.showApp = true
         }, 4300)
       }
-      
-      
     },
     created(){
       this.getPopular()

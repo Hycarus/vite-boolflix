@@ -24,7 +24,8 @@
                     <li class="nav-item">
                         <a class="nav-link text-light" href="#">Sfoglia per lingua</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item d-flex flex-column justify-content-center align-items-center ps-5">
+                        <label class="text-light" for="genres">Seleziona un genere</label>
                         <select name="genres" id="genres" v-model="store.genresSearch" @change="$emit('genresChange')">
                             <option value="">All</option>
                             <option v-for="genres in store.genresList" :key="genres" :value="genres.id">
@@ -109,4 +110,14 @@ input{
         0% {width: 0px;}
         100% {width: 250px;}
     }
+select{
+    border: none;
+    border-radius: 10px;
+    background-color: #dc3545;
+    color: white;
+    padding: 3px;
+    cursor: pointer;
+    
+}
+
 </style>
