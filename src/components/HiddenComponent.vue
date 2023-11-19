@@ -142,7 +142,7 @@ p{
 }
 .my-hidden{
     display: inline-block;
-    z-index: 2000;
+    z-index: 700;
     width: 100%;
     background: rgb(0,0,0);
     background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(20,20,20,1) 58%, rgba(52,50,50,1) 100%);
